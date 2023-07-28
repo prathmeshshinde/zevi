@@ -8,27 +8,16 @@ import { createFakeProducts } from "../../utils/createFakeProducts";
 
 const SearchResultPage = () => {
   const [data, setData] = useState([]);
-  const [filterTags, setFilterTags] = useState({
-    check1: false,
-    check2: false,
-  });
-
-  const filteredProducts = data.filter((product) => {
-    if (filterTags.low && product.price < 100) {
-      return true;
-    } else {
-      return data;
-    }
-  });
-
-  const filteredData = data.filter((node) =>
-    filterTags.length > 0 ? node.price < 500 : data
-  );
+  const [filterTags, setFilterTags] = useState([]);
 
   useEffect(() => {
     const loadData = createFakeProducts(10);
     setData(loadData);
   }, []);
+
+  const filteredData = () => {
+    return filterTags.length > 0 ? filterTags : data;
+  };
 
   return (
     <div className="bg-[#fffff]">
@@ -63,14 +52,11 @@ const SearchResultPage = () => {
       <div className="p-5 flex justify-center flex-wrap lg:justify-evenly  ">
         <div className="mb-10">
           <h4 className="text-4xl font-normal mb-5">Search Results</h4>
-          <DropdownPrice
-            setFilterTags={setFilterTags}
-            filterTags={filterTags}
-          />
-          <DropdownRatings />
+          <DropdownPrice data={data} setFilterTags={setFilterTags} />
+          <DropdownRatings data={data} setFilterTags={setFilterTags} />
         </div>
         <div className="grid min-[440px]:grid-cols-2 grid-cols-1 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3 gap-10 mt-14">
-          {filteredProducts.map((item, index) => {
+          {filteredData().map((item, index) => {
             return (
               <div key={index} className="flex items-center flex-col">
                 <Card item={item} />
