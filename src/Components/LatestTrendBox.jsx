@@ -7,7 +7,6 @@ const LatestTrendBox = () => {
   useEffect(() => {
     const loadData = createFakeProducts(5);
     setData(loadData);
-    console.log(loadData);
   }, []);
 
   return (
