@@ -20,7 +20,6 @@ const HomePage = () => {
   const handleSubmitForm = () => {
     navigate("/search");
   };
-  // bg-[image:var(--image-url)]
 
   return (
     <div

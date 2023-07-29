@@ -83,21 +83,12 @@ const SearchResultPage = () => {
       <div className="p-5 flex justify-center flex-wrap lg:justify-evenly  ">
         <div className="mb-10">
           <h4 className="text-4xl font-normal mb-5">Search Results</h4>
-          <DropdownPrice
-            data={data}
-            setFilterTags={setFilterTags}
-            setSelectedTags={setSelectedTags}
-          />
-          <DropdownRatings
-            data={data}
-            setFilterTags={setFilterTags}
-            setSelectedTags={setSelectedTags}
-          />
+          <DropdownPrice setSelectedTags={setSelectedTags} />
+          <DropdownRatings setSelectedTags={setSelectedTags} />
         </div>
         <div className="w-9/12">
           {filteredCards.length < 10 && filterTags.length === 0 ? (
             <div className="flex h-screen items-center justify-center -mt-20 ">
-              {/* <p className=" text-3xl font-semibold">No Result Found</p> */}
               <img
                 src={NoResult}
                 alt="No-Result"
