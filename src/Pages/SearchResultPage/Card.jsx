@@ -21,15 +21,19 @@ const Card = ({ item }) => {
     return accPrice;
   };
 
-  const handleHeartClick = () => {
-    setHeart(!heart);
+  const handleHeartClick = (id) => {
+    console.log(id);
+    if (item.id === id) {
+      setHeart(!heart);
+    }
+    return;
   };
 
   return (
     <div className="rounded group cursor-pointer transition duration-300 ease-out transform hover:scale-105 ">
       <div className=" relative">
         <div className=" absolute right-2 top-2">
-          <button onClick={handleHeartClick}>
+          <button onClick={() => handleHeartClick(item.id)}>
             {heart ? <HeartFill /> : <Heart />}
           </button>
         </div>

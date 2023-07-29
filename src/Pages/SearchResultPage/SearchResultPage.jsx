@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Logo from "../../assets/zevilogo.png";
 import { ReactComponent as Search } from "../../assets/search.svg";
 import DropdownPrice from "./DropdownPrice";
@@ -9,15 +9,44 @@ import { createFakeProducts } from "../../utils/createFakeProducts";
 const SearchResultPage = () => {
   const [data, setData] = useState([]);
   const [filterTags, setFilterTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const handlePriceFilter = useCallback(() => {
+    let filteredData = [];
+
+    filteredData = selectedTags.reduce((prev, current) => {
+      if (current === "lessThan500") {
+        return (prev.length > 0 ? prev : data).filter(
+          (product) => product.price < 500
+        );
+      } else if (current === "between500And1000") {
+        return (prev.length > 0 ? prev : data).filter(
+          (product) => product.price >= 500 && product.price <= 1000
+        );
+      } else {
+        return (prev.length > 0 ? prev : data).filter(
+          (product) => product.star === Number(current)
+        );
+      }
+    }, filteredData);
+
+    setFilterTags(filteredData);
+
+    console.log(filteredData);
+  }, [selectedTags, data]);
+
+  console.log(filterTags);
 
   useEffect(() => {
     const loadData = createFakeProducts(10);
     setData(loadData);
   }, []);
 
-  const filteredData = () => {
-    return filterTags.length > 0 ? filterTags : data;
-  };
+  useEffect(() => {
+    handlePriceFilter();
+  }, [selectedTags]);
+
+  const filteredCards = selectedTags.length > 0 ? filterTags : data;
 
   return (
     <div className="bg-[#fffff]">
@@ -52,17 +81,27 @@ const SearchResultPage = () => {
       <div className="p-5 flex justify-center flex-wrap lg:justify-evenly  ">
         <div className="mb-10">
           <h4 className="text-4xl font-normal mb-5">Search Results</h4>
-          <DropdownPrice data={data} setFilterTags={setFilterTags} />
-          <DropdownRatings data={data} setFilterTags={setFilterTags} />
+          <DropdownPrice
+            data={data}
+            setFilterTags={setFilterTags}
+            setSelectedTags={setSelectedTags}
+          />
+          <DropdownRatings
+            data={data}
+            setFilterTags={setFilterTags}
+            setSelectedTags={setSelectedTags}
+          />
         </div>
         <div className="grid min-[440px]:grid-cols-2 grid-cols-1 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3 gap-10 mt-14">
-          {filteredData().map((item, index) => {
-            return (
-              <div key={index} className="flex items-center flex-col">
-                <Card item={item} />
-              </div>
-            );
-          })}
+          {selectedTags.length === 0
+            ? "No resukts"
+            : filteredCards.map((item, index) => {
+                return (
+                  <div key={index} className="flex items-center flex-col">
+                    <Card item={item} />
+                  </div>
+                );
+              })}
         </div>
       </div>
     </div>

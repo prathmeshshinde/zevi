@@ -3,6 +3,7 @@ import Logo from "../../assets/zevilogo.png";
 import { ReactComponent as Search } from "../../assets/search.svg";
 import LatestTrendBox from "../../Components/LatestTrendBox";
 import { useNavigate } from "react-router-dom";
+import BgHome from "../../assets/bg-home.jpg";
 
 const HomePage = () => {
   const [showSuggestionBox, setShowSuggestionBox] = useState(false);
@@ -19,9 +20,15 @@ const HomePage = () => {
   const handleSubmitForm = () => {
     navigate("/search");
   };
+  // bg-[image:var(--image-url)]
 
   return (
-    <div className="App bg-[#00ee00] min-h-screen">
+    <div
+      style={{ "--image-url": `url(${BgHome})` }}
+      className="App min-h-screen 
+      bg-hero-pattern
+       bg-from bg-cover "
+    >
       <header className="flex justify-end">
         <img
           alt="ZeviLogo"
@@ -44,7 +51,7 @@ const HomePage = () => {
             <input
               type="text"
               placeholder="Search"
-              className="w-full h-12 rounded-xl py-2 pl-6 text-xl text-[rgba(0,0,0,0.40)] font-medium placeholder:text-xl placeholder:font-normal placeholder:text-[rgba(0, 0, 0, 0.40)] focus:outline-gray-300"
+              className="w-full h-12 rounded-xl py-2 pl-6 text-xl text-[rgba(0,0,0,0.40)] font-medium placeholder:text-xl placeholder:font-normal placeholder:text-[rgba(0, 0, 0, 0.40)] shadow-[0_4px_40px_0px_rgba(0,0,0,0.25)] focus:outline-gray-300"
               onFocus={showSuggestionBoxOnClick}
               onBlur={onBlurSuggectionBox}
             />

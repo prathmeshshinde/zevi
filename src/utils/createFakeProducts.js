@@ -11,6 +11,7 @@ const createFakeProduct = () => {
       height: 325,
     }),
     star: faker.number.int({ min: 1, max: 5 }),
+    id: faker.string.uuid(),
   };
 };
 

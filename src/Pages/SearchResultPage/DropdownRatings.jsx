@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ReactComponent as DropDownIcon } from "../../assets/dropdown.svg";
 import Star from "../../assets/star.png";
 
-const DropdownRatings = ({ data, setFilterTags }) => {
+const DropdownRatings = ({ data, setFilterTags, setSelectedTags }) => {
   const [openDropdown, setOpenDropDown] = useState(true);
 
   const handleOpenDropDown = () => {
@@ -21,42 +21,23 @@ const DropdownRatings = ({ data, setFilterTags }) => {
   const handlePriceFilter = (event) => {
     const { name, checked } = event.target;
 
-    if (name === "5") {
-      const filtered = data.filter((product) => product.star === 5);
-      setFilterTags((prevState) =>
-        checked
-          ? prevState.concat(filtered)
-          : prevState.filter((p) => !filtered.includes(p))
-      );
-    } else if (name === "4") {
-      const filtered = data.filter((product) => product.star === 4);
-      setFilterTags((prevState) =>
-        checked
-          ? prevState.concat(filtered)
-          : prevState.filter((p) => !filtered.includes(p))
-      );
-    } else if (name === "3") {
-      const filtered = data.filter((product) => product.star === 3);
-      setFilterTags((prevState) =>
-        checked
-          ? prevState.concat(filtered)
-          : prevState.filter((p) => !filtered.includes(p))
-      );
-    } else if (name === "2") {
-      const filtered = data.filter((product) => product.star === 2);
-      setFilterTags((prevState) =>
-        checked
-          ? prevState.concat(filtered)
-          : prevState.filter((p) => !filtered.includes(p))
-      );
-    } else if (name === "1") {
-      const filtered = data.filter((product) => product.star === 1);
-      setFilterTags((prevState) =>
-        checked
-          ? prevState.concat(filtered)
-          : prevState.filter((p) => !filtered.includes(p))
-      );
-    }
+    setSelectedTags((prevState) => {
+      return checked
+        ? prevState.concat(name)
+        : prevState.filter((item) => item !== name);
+    });
+
+    // setFilterTags((prevState) => {
+    //   const filtered =
+    //     prevState.length > 0 && checked
+    //       ? prevState.filter((product) => product.star === Number(name))
+    //       : data.filter((product) => product.star === Number(name));
+    //   console.log(filtered);
+    //   return filtered;
+    //   // checked
+    //   //   ? prevState.concat(filtered)
+    //   //   : prevState.filter((p) => !filtered.includes(p));
+    // });
   };
 
   return (
