@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Logo from "../../assets/zevilogo.png";
 import { ReactComponent as Search } from "../../assets/search.svg";
-import DropdownPrice from "./DropdownPrice";
-import DropdownRatings from "./DropdownRatings";
-import Card from "./Card";
+import DropdownPrice from "../../Components/DropdownPrice";
+import DropdownRatings from "../../Components/DropdownRatings";
+import Card from "../../Components/Card";
 import { createFakeProducts } from "../../utils/createFakeProducts";
+import NoResult from "../../assets/noResult.png";
+import Result from "../../assets/result.jpg";
 
 const SearchResultPage = () => {
   const [data, setData] = useState([]);
@@ -15,7 +17,13 @@ const SearchResultPage = () => {
     let filteredData = [];
 
     filteredData = selectedTags.reduce((prev, current) => {
-      if (current === "lessThan500") {
+      // console.log(current);
+      console.log(prev);
+      if (current === "lessThan500" && current === "between500And1000") {
+        return (prev.length > 0 ? prev : data).filter(
+          (product) => product.price > 0
+        );
+      } else if (current === "lessThan500") {
         return (prev.length > 0 ? prev : data).filter(
           (product) => product.price < 500
         );
@@ -32,10 +40,8 @@ const SearchResultPage = () => {
 
     setFilterTags(filteredData);
 
-    console.log(filteredData);
+    // console.log(filteredData);
   }, [selectedTags, data]);
-
-  console.log(filterTags);
 
   useEffect(() => {
     const loadData = createFakeProducts(10);
@@ -92,16 +98,23 @@ const SearchResultPage = () => {
             setSelectedTags={setSelectedTags}
           />
         </div>
-        <div className="grid min-[440px]:grid-cols-2 grid-cols-1 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3 gap-10 mt-14">
-          {selectedTags.length === 0
-            ? "No resukts"
-            : filteredCards.map((item, index) => {
+        <div className="w-9/12">
+          {filteredCards.length < 10 && filterTags.length === 0 ? (
+            <div className="flex h-screen items-center justify-center -mt-20 ">
+              {/* <p className=" text-3xl font-semibold">No Result Found</p> */}
+              <img src={Result} alt="No-Result" className="w-9/12 rounded-lg" />
+            </div>
+          ) : (
+            <div className="grid min-[440px]:grid-cols-2 grid-cols-1 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3 gap-10 mt-14">
+              {filteredCards.map((item, index) => {
                 return (
                   <div key={index} className="flex items-center flex-col">
                     <Card item={item} />
                   </div>
                 );
               })}
+            </div>
+          )}
         </div>
       </div>
     </div>

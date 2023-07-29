@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { ReactComponent as DropDownIcon } from "../../assets/dropdown.svg";
-import Star from "../../assets/star.png";
+import { ReactComponent as DropDownIcon } from "../assets/dropdown.svg";
+import Star from "../assets/star.png";
 
 const DropdownRatings = ({ data, setFilterTags, setSelectedTags }) => {
   const [openDropdown, setOpenDropDown] = useState(true);
@@ -26,18 +26,6 @@ const DropdownRatings = ({ data, setFilterTags, setSelectedTags }) => {
         ? prevState.concat(name)
         : prevState.filter((item) => item !== name);
     });
-
-    // setFilterTags((prevState) => {
-    //   const filtered =
-    //     prevState.length > 0 && checked
-    //       ? prevState.filter((product) => product.star === Number(name))
-    //       : data.filter((product) => product.star === Number(name));
-    //   console.log(filtered);
-    //   return filtered;
-    //   // checked
-    //   //   ? prevState.concat(filtered)
-    //   //   : prevState.filter((p) => !filtered.includes(p));
-    // });
   };
 
   return (

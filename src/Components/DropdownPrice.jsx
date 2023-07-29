@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ReactComponent as DropDownIcon } from "../../assets/dropdown.svg";
+import { ReactComponent as DropDownIcon } from "../assets/dropdown.svg";
 
 const DropdownPrice = ({ data, setFilterTags, setSelectedTags }) => {
   const [openDropdown, setOpenDropDown] = useState(true);
@@ -16,28 +16,6 @@ const DropdownPrice = ({ data, setFilterTags, setSelectedTags }) => {
         ? prevState.concat(name)
         : prevState.filter((item) => item !== name);
     });
-
-    // if (name === "lessThan500") {
-    //   setFilterTags((prevState) => {
-    //     const filtered =
-    //       prevState.length > 0
-    //         ? prevState.filter((product) => product.price < 500)
-    //         : data.filter((product) => product.price < 500);
-    //     return filtered;
-    //   });
-    // } else if (name === "between500And1000") {
-    //   setFilterTags((prevState) => {
-    //     const filtered =
-    //       prevState.length > 0
-    //         ? prevState.filter(
-    //             (product) => product.price >= 500 && product.price <= 1000
-    //           )
-    //         : data.filter(
-    //             (product) => product.price >= 500 && product.price <= 1000
-    //           );
-    //     return filtered;
-    //   });
-    // }
   };
 
   return (

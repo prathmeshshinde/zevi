@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Star from "../../assets/star.png";
-import { ReactComponent as Heart } from "../../assets/heart.svg";
-import { ReactComponent as HeartFill } from "../../assets/heartfill.svg";
+import Star from "../assets/star.png";
+import { ReactComponent as Heart } from "../assets/heart.svg";
+import { ReactComponent as HeartFill } from "../assets/heartfill.svg";
 
 const Card = ({ item }) => {
   const [heart, setHeart] = useState(false);
