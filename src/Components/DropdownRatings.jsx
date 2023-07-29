@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ReactComponent as DropDownIcon } from "../assets/dropdown.svg";
 import Star from "../assets/star.png";
 
-const DropdownRatings = ({ data, setFilterTags, setSelectedTags }) => {
+const DropdownRatings = ({ setSelectedTags }) => {
   const [openDropdown, setOpenDropDown] = useState(true);
 
   const handleOpenDropDown = () => {

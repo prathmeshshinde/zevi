@@ -5,8 +5,8 @@ import DropdownPrice from "../../Components/DropdownPrice";
 import DropdownRatings from "../../Components/DropdownRatings";
 import Card from "../../Components/Card";
 import { createFakeProducts } from "../../utils/createFakeProducts";
-import NoResult from "../../assets/noResult.png";
-import Result from "../../assets/result.jpg";
+
+import NoResult from "../../assets/result.jpg";
 
 const SearchResultPage = () => {
   const [data, setData] = useState([]);
@@ -17,8 +17,6 @@ const SearchResultPage = () => {
     let filteredData = [];
 
     filteredData = selectedTags.reduce((prev, current) => {
-      // console.log(current);
-      console.log(prev);
       if (current === "lessThan500" && current === "between500And1000") {
         return (prev.length > 0 ? prev : data).filter(
           (product) => product.price > 0
@@ -39,8 +37,6 @@ const SearchResultPage = () => {
     }, filteredData);
 
     setFilterTags(filteredData);
-
-    // console.log(filteredData);
   }, [selectedTags, data]);
 
   useEffect(() => {
@@ -102,7 +98,11 @@ const SearchResultPage = () => {
           {filteredCards.length < 10 && filterTags.length === 0 ? (
             <div className="flex h-screen items-center justify-center -mt-20 ">
               {/* <p className=" text-3xl font-semibold">No Result Found</p> */}
-              <img src={Result} alt="No-Result" className="w-9/12 rounded-lg" />
+              <img
+                src={NoResult}
+                alt="No-Result"
+                className="w-9/12 rounded-lg"
+              />
             </div>
           ) : (
             <div className="grid min-[440px]:grid-cols-2 grid-cols-1 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3 gap-10 mt-14">
